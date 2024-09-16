@@ -48,5 +48,27 @@ Tất cả các thuộc tính trừ thuộc tính churn đều là dữ liệu t
 - **Số hàng**: 3150
 - **Bộ dữ liệu không chứa giá trị NaN.**
 Tập dữ liệu này cung cấp thông tin chi tiết về hành vi của khách hàng và giá trị của họ, giúp phân tích và dự đoán các xu hướng liên quan đến việc sử dụng dịch vụ và tỷ lệ churn.
+### Train Test Split - Chia tập dữ liệu
+X là cà các đặc trưng đầu vào của mô hình.
 
+y là biến mục tiêu (target variable).
 
+Tập dữ liệu được chia thành 2 phần:  20% của dữ liệu sẽ được dành cho tập kiểm tra và 80% còn lại sẽ được dùng cho huấn luyện
+
+### Scaling - Chuẩn hóa dữ liệu
+
+### Resampling - Điều chỉnh tỷ lệ mẫu
+Số lượng các mẫu trong dữ liệu gốc trước khi resampling: 2655 mẫu thuộc lớp 0 và 495 mẫu thuộc lớp 1.
+
+Số lượng các mẫu sau khi thực hiện resampling:  cả hai lớp đều có 385 mẫu.
+## Huấn luyện mô hình
+### Mô hình Logistic Regression
+
+### Mô hình Decision Tree
+
+### Mô hình Random Forest
+
+### Mô hình K-Neighbor KNN
+
+### Mô hình Support Vector Classifier - SVC 
+### 
