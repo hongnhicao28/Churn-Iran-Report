@@ -71,4 +71,29 @@ Số lượng các mẫu sau khi thực hiện resampling:  cả hai lớp đề
 ### Mô hình K-Neighbor KNN
 
 ### Mô hình Support Vector Classifier - SVC 
-### 
+### Chọn mô hình phù hợp
+
+#### Kết Quả Đánh Giá Mô Hình
+
+Dưới đây là bảng đánh giá hiệu suất của các mô hình khác nhau:
+
+| Model                     | Accuracy | F1 Score | Precision | Recall |
+|---------------------------|----------|----------|-----------|--------|
+| Logistic Regression       | 0.8159   | 0.6234   | 0.4848    | 0.8727 |
+| Decision Tree             | 0.8159   | 0.6234   | 0.4848    | 0.8727 |
+| Random Forest             | 0.8825   | 0.7338   | 0.6071    | 0.9273 |
+| K-Neighbors               | 0.9016   | 0.7597   | 0.6622    | 0.8909 |
+| Support Vector Classifier | 0.8968   | 0.7601   | 0.6398    | 0.9364 |
+
+#### Phân Tích Kết Quả
+
+Dựa trên bảng đánh giá, mô hình có hiệu suất tốt nhất là **Support Vector Classifier (SVC)** với các chỉ số như sau:
+
+- **Accuracy**: 0.8968
+- **F1 Score**: 0.7601
+- **Precision**: 0.6398
+- **Recall**: 0.9364
+
+Mô hình này có tỷ lệ dự đoán chính xác (Accuracy) cao và độ F1 Score tương đối cao, đồng thời cân bằng khá tốt giữa Precision và Recall. Điều này cho thấy mô hình có khả năng dự đoán tốt trên cả các trường hợp dương tính và âm tính trong dữ liệu của bạn.
+
+
