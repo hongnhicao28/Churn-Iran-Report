@@ -49,20 +49,45 @@ Tất cả các thuộc tính trừ thuộc tính churn đều là dữ liệu t
 - **Bộ dữ liệu không chứa giá trị NaN.**
 Tập dữ liệu này cung cấp thông tin chi tiết về hành vi của khách hàng và giá trị của họ, giúp phân tích và dự đoán các xu hướng liên quan đến việc sử dụng dịch vụ và tỷ lệ churn.
 ### Train Test Split - Chia tập dữ liệu
-X là cà các đặc trưng đầu vào của mô hình.
-
-y là biến mục tiêu (target variable).
-
-Tập dữ liệu được chia thành 2 phần:  20% của dữ liệu sẽ được dành cho tập kiểm tra và 80% còn lại sẽ được dùng cho huấn luyện
-
+X là cà các đặc trưng đầu vào của mô hình.  
+y là biến mục tiêu (target variable).  
+Tập dữ liệu được chia thành 2 phần:  20% của dữ liệu sẽ được dành cho tập kiểm tra và 80% còn lại sẽ được dùng cho huấn luyện 
 ### Scaling - Chuẩn hóa dữ liệu
 
 ### Resampling - Điều chỉnh tỷ lệ mẫu
-Số lượng các mẫu trong dữ liệu gốc trước khi resampling: 2655 mẫu thuộc lớp 0 và 495 mẫu thuộc lớp 1.
-
-Số lượng các mẫu sau khi thực hiện resampling:  cả hai lớp đều có 385 mẫu.
+Số lượng các mẫu trong dữ liệu gốc trước khi resampling: 2655 mẫu thuộc lớp 0 và 495 mẫu thuộc lớp 1.  
+Số lượng các mẫu sau khi thực hiện resampling:  cả hai lớp đều có 385 mẫu.  
 ## Huấn luyện mô hình
 ### Mô hình Logistic Regression
+#### Tìm siêu tham số
+C (Inverse of regularization strength): Tham số điều chỉnh mức độ phạt của hàm mất mát trong quá trình huấn luyện.  
+Penalty (L1, L2): Loại hàm regularization được áp dụng (L1 - Lasso, L2 - Ridge).  
+Solver: Thuật toán sử dụng để tối ưu hóa.  
+
+```
+Define the parameter grid
+param_grid_LR = {
+    'C': [0.01, 0.1, 1, 10, 100],
+    'solver': ['liblinear', 'saga', 'lbfgs'],
+    'penalty': ['l2']
+}
+```
+#### Huấn luyện mô hình
+```
+model_LR = LogisticRegression()
+```
+#### Đánh giá mô hình
+
+**Kết quả**
+**accuracy_LR:* 0.8158730158730159  
+**f1_LR:* 0.6233766233766235  
+**precision_LR:* 0.48484848484848486  
+**recall_LR:* 0.872727272727272  
+Ma trận nhầm lẫn
+- Có 418 điểm dữ liệu thuộc lớp negative (lớp 0) và được dự đoán đúng là negative (TN).
+- Có 102 điểm dữ liệu thuộc lớp negative nhưng bị dự đoán là positive (FP).
+- Có 14 điểm dữ liệu thuộc lớp positive nhưng bị dự đoán là negative (FN).
+- Có 96 điểm dữ liệu thuộc lớp positive và được dự đoán đúng là positive (TP).
 
 ### Mô hình Decision Tree
 
@@ -71,29 +96,94 @@ Số lượng các mẫu sau khi thực hiện resampling:  cả hai lớp đề
 ### Mô hình K-Neighbor KNN
 
 ### Mô hình Support Vector Classifier - SVC 
+```
+accuracy_SVC = accuracy_score(y_test, y_pred_SVC)
+f1_SVC = f1_score(y_test, y_pred_SVC)
+precision_SVC = precision_score(y_test, y_pred_SVC)
+recall_SVC = recall_score(y_test, y_pred_SVC)
+print("accuracy_SVC:", accuracy_SVC)
+print("f1_SVC:", f1_SVC)
+print("precision_SVC:", precision_SVC)
+print("recall_SVC:", recall_SVC)
+```
+**Kết quả**
+*accuracy_SVC:* 0.8968253968253969  
+*f1_SVC:* 0.7601476014760147  
+*precision_SVC:* 0.639751552795031  
+*recall_SVC:* 0.9363636363636364  
+Ma trận nhầm lẫn
+- Có 462 điểm dữ liệu thuộc lớp negative (lớp 0) và được dự đoán đúng là negative (TN).
+- Có 58 điểm dữ liệu thuộc lớp negative nhưng bị dự đoán là positive (FP).
+- Có 7 điểm dữ liệu thuộc lớp positive nhưng bị dự đoán là negative (FN).
+- Có 103 điểm dữ liệu thuộc lớp positive và được dự đoán đúng là positive (TP).
+
 ### Chọn mô hình phù hợp
-
 #### Kết Quả Đánh Giá Mô Hình
-
 Dưới đây là bảng đánh giá hiệu suất của các mô hình khác nhau:
+##### Classification Reports for Machine Learning Models
+Dưới đây là các báo cáo phân loại (Classification Reports) cho các mô hình khác nhau được đánh giá.  
 
-| Model                     | Accuracy | F1 Score | Precision | Recall |
-|---------------------------|----------|----------|-----------|--------|
-| Logistic Regression       | 0.8159   | 0.6234   | 0.4848    | 0.8727 |
-| Decision Tree             | 0.8159   | 0.6234   | 0.4848    | 0.8727 |
-| Random Forest             | 0.8825   | 0.7338   | 0.6071    | 0.9273 |
-| K-Neighbors               | 0.9016   | 0.7597   | 0.6622    | 0.8909 |
-| Support Vector Classifier | 0.8968   | 0.7601   | 0.6398    | 0.9364 |
+---
+
+###### Logistic Regression
+| Metric         | Class 0 | Class 1 | Accuracy | Macro Avg | Weighted Avg |
+|----------------|---------|---------|----------|-----------|--------------|
+| Precision      | 0.97    | 0.48    | 0.82     | 0.73      | 0.88         |
+| Recall         | 0.80    | 0.87    |          | 0.84      | 0.82         |
+| F1-Score       | 0.88    | 0.62    |          | 0.75      | 0.83         |
+| Support        | 520     | 110     |          | 630       | 630          |
+
+---
+
+###### Decision Tree
+| Metric         | Class 0 | Class 1 | Accuracy | Macro Avg | Weighted Avg |
+|----------------|---------|---------|----------|-----------|--------------|
+| Precision      | 0.97    | 0.48    | 0.82     | 0.73      | 0.88         |
+| Recall         | 0.80    | 0.87    |          | 0.84      | 0.82         |
+| F1-Score       | 0.88    | 0.62    |          | 0.75      | 0.83         |
+| Support        | 520     | 110     |          | 630       | 630          |
+
+---
+
+###### Random Forest
+| Metric         | Class 0 | Class 1 | Accuracy | Macro Avg | Weighted Avg |
+|----------------|---------|---------|----------|-----------|--------------|
+| Precision      | 0.98    | 0.60    | 0.88     | 0.79      | 0.91         |
+| Recall         | 0.87    | 0.91    |          | 0.89      | 0.88         |
+| F1-Score       | 0.92    | 0.72    |          | 0.82      | 0.89         |
+| Support        | 520     | 110     |          | 630       | 630          |
+
+---
+
+###### K-Neighbors
+| Metric         | Class 0 | Class 1 | Accuracy | Macro Avg | Weighted Avg |
+|----------------|---------|---------|----------|-----------|--------------|
+| Precision      | 0.98    | 0.66    | 0.90     | 0.82      | 0.92         |
+| Recall         | 0.90    | 0.89    |          | 0.90      | 0.90         |
+| F1-Score       | 0.94    | 0.76    |          | 0.85      | 0.91         |
+| Support        | 520     | 110     |          | 630       | 630          |
+
+---
+
+###### Support Vector Classifier
+| Metric         | Class 0 | Class 1 | Accuracy | Macro Avg | Weighted Avg |
+|----------------|---------|---------|----------|-----------|--------------|
+| Precision      | 0.99    | 0.64    | 0.90     | 0.81      | 0.92         |
+| Recall         | 0.89    | 0.94    |          | 0.91      | 0.90         |
+| F1-Score       | 0.93    | 0.76    |          | 0.85      | 0.90         |
+| Support        | 520     | 110     |          | 630       | 630          |
+
+---
+
+> **Ghi chú**: "Class 0" và "Class 1" tương ứng với các nhãn phân loại trong tập dữ liệu, với độ chính xác (accuracy), độ bao phủ (recall), và F1-Score được cung cấp cho từng mô hình.
 
 #### Phân Tích Kết Quả
-
 Dựa trên bảng đánh giá, mô hình có hiệu suất tốt nhất là **Support Vector Classifier (SVC)** với các chỉ số như sau:
-
 - **Accuracy**: 0.8968
 - **F1 Score**: 0.7601
 - **Precision**: 0.6398
 - **Recall**: 0.9364
 
-Mô hình này có tỷ lệ dự đoán chính xác (Accuracy) cao và độ F1 Score tương đối cao, đồng thời cân bằng khá tốt giữa Precision và Recall. Điều này cho thấy mô hình có khả năng dự đoán tốt trên cả các trường hợp dương tính và âm tính trong dữ liệu của bạn.
+Mô hình này có tỷ lệ dự đoán chính xác (Accuracy) cao và độ F1 Score tương đối cao, đồng thời cân bằng khá tốt giữa Precision và Recall. Điều này cho thấy mô hình có khả năng dự đoán tốt trên cả các trường hợp dương tính và âm tính trong dữ liệu.
 
 
